@@ -1,5 +1,5 @@
 # 키클락 개인 IAM 서버 구축기
-제 게인용으로 사용하기 위해 IAM 서버를 구성하고 있습니다.
+제 개인용으로 사용하기 위해 IAM 서버를 구성하고 있습니다.
 
 ## podman으로 구성하기
 기존에 docker로 구성하던 중, rootless로 구성된 container를 사용해보고 싶어, docker 대신 podman으로 변경함. 
