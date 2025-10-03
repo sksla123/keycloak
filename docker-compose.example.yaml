@@ -1,0 +1,50 @@
+services:
+  postgres:
+    image: postgres:15-alpine
+    container_name: keycloak-db
+    volumes:
+      - ./pgdata:/var/lib/postgresql/data ## data 영구 유지를 위함
+    environment:
+      POSTGRES_DB: KC-table
+      POSTGRES_USER: KC-user
+      POSTGRES_PASSWORD: 비밀번호는 알아서 만들어주세요!
+    restart: always
+    networks:
+      - keycloak-net
+
+  keycloak:
+    image: quay.io/keycloak/keycloak:26.4.0
+    container_name: keycloak-server
+    depends_on:
+      - postgres
+    environment:
+      # --- 데이터베이스 연결 설정 ---
+      KC_DB: postgres
+      KC_DB_URL_HOST: postgres
+      KC_DB_URL_DATABASE: KC-table
+      KC_DB_USERNAME: KC-user
+      KC_DB_PASSWORD: DB에 설정된 비밀번호와 일치시켜주세요!
+
+      # --- 키클락 관리자 설정 ---
+      KC_BOOTSTRAP_ADMIN_USERNAME: 임시 어드민 계정 이름
+      KC_BOOTSTRAP_ADMIN_PASSWORD: 임시 어드민 비밀번호
+
+      # --- 리버스 프록시 및 HTTP 설정 ---
+      ## 저는 리버스 프록시 뒤에서 동작시키고 있기 때문에, 리버스 프록시 설정을 해두었습니다만, 해당사항이 없으신 분들은 아래 내용을 없애주세요!
+      KC_PROXY_HEADERS: "xforwarded"
+      KC_HTTP_ENABLED: "true" # http 모드 실행 (false 시 https 모드로 실행됨.) ## 저는 https로 동작되는 리버스 프록시 뒤에서 http로 통신하는 형태로 만들었습니다.
+      KC_HOSTNAME: "your.example.com" # 본인 도메인 입력
+      KC_HTTP_RELATIVE_PATH: "/your-private-relative-path" #본인이 리버스프록시에서 어떤 path에서 받는지 적으시면 됩니다.
+
+    ports:
+      - "8080:8080"
+    restart: always
+    networks:
+      - keycloak-net
+    command:
+      - "start"
+
+networks:
+  keycloak-net:
+    driver: bridge
+
