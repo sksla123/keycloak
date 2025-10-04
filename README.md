@@ -70,7 +70,7 @@ services:
       - keycloak-net
 
   keycloak:
-    image: quay.io/keycloak/keycloak:26.4.0
+    image: quay.io/keycloak/keycloak:26.4.0 # 보안/인증과 관련된 모듈은 항상 최신 stable 버전을 사용하도록 노력하자.
     container_name: keycloak-server
     depends_on:
       - postgres
@@ -105,3 +105,15 @@ networks:
   keycloak-net:
     driver: bridge
 ```
+## admin 등록/임시 admin 삭제
+키클록에서는 보안을 위해 임시 admin를 삭제할 것을 권고 하고 있다. 임시 마스터를 삭제하기 위해 현재 masters realm에서 우선 새로운 admin을 등록한다.
+> *realm이 뭔가요?
+> > realm이란 조직에 가깝다. 한 realm에 등록된 유저들은 realm에 등록된 모든 client에 로그인할 수 있다.
+> >
+> > 이를 조직에 확대시켜 예를 들어보면, 카카오 조직(kakao realm)에 들어간 모든 회원에 대해 카카오에서 하는 모든 서비스에 로그인 할 수 있도록 하는 것이다.
+> >
+> > (물론 실제로 이렇게 운영되진 않는다.) 
+> >
+> > 다만, 유저는 어떤 그룹에 속해있는지, 어떤 role을 부여받았는지, 해당 유저가 가지고 있는 세부적인 메타 정보에 따라 조직 내에서도 다른 서비스를 제공하게 할 수도 있다.
+
+1. 먼저 realm이 master인지 확인한다.
