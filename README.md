@@ -55,7 +55,7 @@ docker-compose down -v
 
 ## 키클락 컨테이너 설치 및 실행
 1. docker-compose 파일 구성
-여기 있는 docker-compose.yaml.example 참조
+> docker-compose.example.yaml 참조
 ```yaml
 #docker-compose.yaml
 services:
