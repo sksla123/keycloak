@@ -132,7 +132,7 @@ docker-compose down
 > >
 > > 다만, 유저는 어떤 그룹에 속해있는지, 어떤 role을 부여받았는지, 해당 유저가 가지고 있는 세부적인 메타 정보에 따라 조직 내에서도 다른 서비스를 제공하게 할 수도 있다.
 
-1. 먼저 realm이 master인지 확인합니다.
+1. 먼저 realm이 master(=keycloak)인지 확인합니다.
 <img width="557" height="332" alt="Image" src="https://github.com/user-attachments/assets/7ca067aa-0e80-4d03-a28c-6878ec46a551" />
 
 (사이트 왼쪽 상단을 확인하면, 본인의 현재 realm(current realm)이 나온다.)
