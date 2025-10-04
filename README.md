@@ -135,26 +135,26 @@ docker-compose down
 > > 다만, 유저는 어떤 그룹에 속해있는지, 어떤 role을 부여받았는지, 해당 유저가 가지고 있는 세부적인 메타 정보에 따라 조직 내에서도 다른 서비스를 제공하게 할 수도 있다.
 
 1. 먼저 realm이 master(=keycloak)인지 확인합니다.
-<img width="557" height="332" alt="Image" src="https://github.com/user-attachments/assets/7ca067aa-0e80-4d03-a28c-6878ec46a551" />
+<img width="557" height="332" alt="Image" src="https://github.com/user-attachments/assets/7ca067aa-0e80-4d03-a28c-6878ec46a551" style="border: 2px solid black;"/>
 
 (사이트 왼쪽 상단을 확인하면, 본인의 현재 realm(current realm)이 나온다.)
 > 만약 realm이 master가 아니라면, 왼쪽 상단의 Manage realms를 누른 뒤, master realm을 선택해 눌러줍니다.
 2. users 탭으로 이동 후, add user를 눌러줍니다.
-<img width="899" height="267" alt="image" src="https://github.com/user-attachments/assets/509170d7-3552-447d-b537-2acd4f9ca75d" />
+<img width="899" height="267" alt="image" src="https://github.com/user-attachments/assets/509170d7-3552-447d-b537-2acd4f9ca75d" style="border: 2px solid black;"/>
 
 3. 새로운 사용자 이름을 작성 후 하단의 create 버튼을 눌러줍니다.
-<img width="797" height="889" alt="image" src="https://github.com/user-attachments/assets/abcfb324-eb48-4918-8998-9bf3fec685c4" />
+<img width="797" height="889" alt="image" src="https://github.com/user-attachments/assets/abcfb324-eb48-4918-8998-9bf3fec685c4" style="border: 2px solid black;"/>
 
 4. 새롭게 뜬 유저 관리 창에서, credentials 탭으로 이동 후 비밀번호를 설정해줍니다.
-<img width="1056" height="503" alt="image" src="https://github.com/user-attachments/assets/0ca21c32-3bc5-470e-8221-456c5243f01a" />
+<img width="1056" height="503" alt="image" src="https://github.com/user-attachments/assets/0ca21c32-3bc5-470e-8221-456c5243f01a" style="border: 2px solid black;"/>
 
 > admin 계정이니 만큼 전 temporaly는 꺼둔 상태입니다. (개인 호불호에 따라 결정하시면 될 듯 합니다.)
 5. 유저 관리 창에서, Role Mapping 탭으로 이동 후 assign role을 눌러 realm roles - admin을 부여해줍니다.
-<img width="1163" height="632" alt="image" src="https://github.com/user-attachments/assets/5c2a8767-8cf9-4d6e-bd7a-56faff5a14bd" />
+<img width="1163" height="632" alt="image" src="https://github.com/user-attachments/assets/5c2a8767-8cf9-4d6e-bd7a-56faff5a14bd" style="border: 2px solid black;"/>
 
 6. sign out 후 새롭게 만든 id로 로그인합니다.
 7. 다시 현재 realm이 master인지 확인하고 user 탭으로 이동 후, 기존 임시 admin 계정을 삭제합니다.
-<img width="1688" height="301" alt="image" src="https://github.com/user-attachments/assets/705c1937-fecd-432d-9c13-0d7331acf6fd" />
+<img width="1688" height="301" alt="image" src="https://github.com/user-attachments/assets/705c1937-fecd-432d-9c13-0d7331acf6fd" style="border: 2px solid black;"/>
 
 ## realm 생성
 (힘이 빠져서 내일 적겠습니다.)
