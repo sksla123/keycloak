@@ -157,4 +157,4 @@ docker-compose down
 <img width="1688" height="301" alt="image" src="https://github.com/user-attachments/assets/705c1937-fecd-432d-9c13-0d7331acf6fd" style="border: 2px solid black;"/>
 
 ## realm 생성
-(힘이 빠져서 내일 적겠습니다.)
+추후 작성
