@@ -92,7 +92,7 @@ services:
       KC_BOOTSTRAP_ADMIN_PASSWORD: 임시 어드민 비밀번호를 입력해주세요.
 
       # --- http 설정 ---
-      KC_HTTP_ENABLED: "true" # http 모드 실행 여부 (false 시 https 모드로 실행됩니다.)
+      KC_HTTP_ENABLED: "true" # http 모드 실행 여부 (false 시 https 모드로 실행됩니다. 리버스 프록시로 동작하기 때문에 꺼놨습니다.)
 
       # --- 도메인 설정 ---
       KC_HOSTNAME: "your.example.com" # 도메인을 가지신 분들은 도메인을 작성해주세요. 
@@ -100,6 +100,8 @@ services:
       # --- 리버스 프록시 설정 ---
       ## 해당사항이 없으신 분들은 아래 내용을 없애도 괜찮습니다.
       KC_PROXY_HEADERS: "xforwarded"
+
+      # --- 기타 ---
       KC_HTTP_RELATIVE_PATH: "/your/private/relative/path" # 리버스 프록시 상대 경로 입력. (루트에서 받는다면 지워도 괜찮습니다.)
 
     ports:
