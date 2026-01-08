@@ -177,5 +177,27 @@ cd /opt/keycloak/bin
 7. 다시 현재 realm이 master인지 확인하고 user 탭으로 이동 후, 기존 임시 admin 계정을 삭제합니다.
 <img width="1688" height="301" alt="image" src="https://github.com/user-attachments/assets/705c1937-fecd-432d-9c13-0d7331acf6fd" style="border: 2px solid black;"/>
 
-## realm 생성
-추후 작성
+## realm 생성 및 생성된 realm에 계정 추가
+1. 왼쪽 상단의 Manage realms를 클릭해 이동 후, create realm 클릭
+<img width="1697" height="1219" alt="Image" src="https://github.com/user-attachments/assets/4cf876b0-1cd1-4834-9360-dbded0c48919" />
+
+2. realm 이름을 설정하고 create 클릭 (enabled 체크)
+<img width="1459" height="1015" alt="image" src="https://github.com/user-attachments/assets/5c7d7d58-6460-483a-bd72-039e6cc1891b" />
+
+3. 왼쪽 상단 current realm이 방금 생성한 realm으로 변경되었는지 확인
+<img width="1669" height="959" alt="image" src="https://github.com/user-attachments/assets/22b59ecc-add6-4cfb-b472-10f6c5078167" />
+
+만약 current realm이 방금 생성한 realm이 아니라면 Manage realm에서 방금 생성한 realm의 이름을 눌러 current realm으로 설정할 수 있습니다.
+
+4. users 탭으로 이동 후 create new user 클릭
+<img width="1438" height="922" alt="image" src="https://github.com/user-attachments/assets/b82a9508-46c5-4731-8e38-2e6df0e6a84d" />
+
+이미지엔 짤려서 안보이지만 가운데에 있습니다.
+
+5. 적절히 정보를 채운 후, create를 눌러 계정 생성
+<img width="1919" height="1739" alt="image" src="https://github.com/user-attachments/assets/59d3bcaa-a6b6-463b-ad85-6ba5e9852c72" />
+
+필요치 않은 경우, 필수 정보인 Username만 설정해도 좋습니다.
+
+## 계정 비밀번호 설정/변경
+
