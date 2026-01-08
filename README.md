@@ -200,4 +200,14 @@ cd /opt/keycloak/bin
 필요치 않은 경우, 필수 정보인 Username만 설정해도 좋습니다.
 
 ## 계정 비밀번호 설정/변경
+1. users 탭에서 수정을 원하는 계정 클릭
+<img width="1961" height="938" alt="image" src="https://github.com/user-attachments/assets/81ac2e30-ecb9-4679-a95d-cbf85eb6588a" />
+
+2. credentials 탭으로 이동 후, create password/reset password 클릭
+<img width="2185" height="852" alt="image" src="https://github.com/user-attachments/assets/1c0e3721-d05b-4552-9bef-9cbf99d5dbe9" />
+
+3. 비밀번호 입력 후 save 클릭
+<img width="978" height="549" alt="image" src="https://github.com/user-attachments/assets/12d4c6bc-3303-4e14-9734-d7a16e671704" />
+
+Temporary 활성화 시 비밀번호 생성/변경 이후 최초 로그인 시 비밀번호 변경이 강제됨. (원할 때 체크)
 
