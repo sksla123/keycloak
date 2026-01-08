@@ -1,7 +1,9 @@
 # 키클락 개인/동아리용 IAM 서버 구축기
 제 개인 및 동아리 전용으로 사용하기 위해 IAM 서버를 구성하고 있으며, 개인 깃허브에 기록을 위해 해당 내용을 정리하고 있습니다.
 
-(추후 동아리 깃허브로 이관될 수도 있습니다.)
+---
+
+docker로 설정하실 분은 아래 내용을 건너뛰어도 괜찮습니다.
 
 ## podman으로 구성하기
 기존에 docker로 구성하던 중, rootless로 구성된 container를 사용해보고 싶어 docker 대신 podman을 사용해보기로 했습니다.
@@ -55,6 +57,8 @@ docker-compose down -v
 ```
 > 만약, podman을 완전히 docker처럼 사용하고 싶으시다면, alias 등록을 통해 docker 처럼 사용할 수 있습니다.
 
+---
+
 ## 키클락 컨테이너 설치 및 실행
 1. docker-compose 파일 구성
 > docker-compose.example.yaml 참조
@@ -92,17 +96,18 @@ services:
       KC_BOOTSTRAP_ADMIN_PASSWORD: 임시 어드민 비밀번호를 입력해주세요.
 
       # --- http 설정 ---
-      KC_HTTP_ENABLED: "true" # http 모드 실행 여부 (false 시 https 모드로 실행됩니다. 리버스 프록시로 동작하기 때문에 꺼놨습니다.)
+      KC_HTTP_ENABLED: "true" # http 모드 실행 여부 (리버스 프록시에서 tls를 처리하는 경우, 또는 테스트할 때 사용합니다.)
 
       # --- 도메인 설정 ---
-      KC_HOSTNAME: "your.example.com" # 도메인을 가지신 분들은 도메인을 작성해주세요. 
+      KC_HOSTNAME: "your.example.com" # 도메인을 가지신 분들은 도메인을 작성해주세요.
+      # KC_HOSTNAME_STRICT: false # 도메인이 없으신 분들은 위 도메인 설정을 주석처리하고, 이 설정을 사용하십시오.
 
       # --- 리버스 프록시 설정 ---
       ## 해당사항이 없으신 분들은 아래 내용을 없애도 괜찮습니다.
       KC_PROXY_HEADERS: "xforwarded"
 
       # --- 기타 ---
-      KC_HTTP_RELATIVE_PATH: "/your/private/relative/path" # 리버스 프록시 상대 경로 입력. (루트에서 받는다면 지워도 괜찮습니다.)
+      KC_HTTP_RELATIVE_PATH: "/your/private/relative/path" # 상대 경로 입력. (루트에서 받는다면 지워도 괜찮습니다.)
 
     ports:
       - "8080:8080"
@@ -125,16 +130,30 @@ docker-compose up -d
 docker-compose down
 ```
 
+---
+
+### (개발/테스트) master realm에 ssl_required 해제
+개발/테스트 목적으로 사용할 때 https를 사용할 수 없는 환경에서는 아래 과정을 통해 ssl_required를 해제할 수 있습니다. (최초 1회만 수행)
+
+```bash
+docker exec -it <CONTAINER_ID/NAME> bash
+```
+- master realm 로그인 시 ssl_required 해제
+```bash
+cd /opt/keycloak/bin
+
+# 로컬 호스트여야 작동함
+./kcadm.sh config credentials --server http://localhost:8080<키클락 상대 주소(있다면)> --realm master --user $KC_BOOTSTRAP_ADMIN_USERNAME --password $KC_BOOTSTRAP_ADMIN_PASSWORD
+
+./kcadm.sh update realms/master -s sslRequired=NONE
+```
+> 이를 통해 master realm으로 접속이 가능해지면 후, web GUI를 통해 각 realm 설정에서 ssl_required를 해제할 수 있습니다.
+
+---
+
 ## admin 등록/임시 admin 삭제
-키클록에서는 보안을 위해 임시 admin를 삭제할 것을 권고하고 있습니다. 임시 마스터를 삭제하기 위해서는 현재 masters realm에서 우선 새로운 admin을 등록해야 합니다.
-> *realm이 뭔가요?
-> > realm이란 조직에 가깝다. 한 realm에 등록된 유저들은 realm에 등록된 모든 client에 로그인할 수 있다.
-> >
-> > 이를 조직에 확대시켜 예를 들어보면, 카카오 조직(kakao realm)에 들어간 모든 회원에 대해 카카오에서 하는 모든 서비스에 로그인 할 수 있도록 하는 것이다.
-> >
-> > (물론 실제로 이렇게 운영되진 않는다.) 
-> >
-> > 다만, 유저는 어떤 그룹에 속해있는지, 어떤 role을 부여받았는지, 해당 유저가 가지고 있는 세부적인 메타 정보에 따라 조직 내에서도 다른 서비스를 제공하게 할 수도 있다.
+키클록에서는 보안을 위해 임시 admin를 삭제할 것을 권고하고 있습니다. 임시 마스터를 삭제하기 위해서는 현재 masters *realm에서 우선 새로운 admin을 등록해야 합니다.
+> 📌 참고: Realm의 역할 Realm은 독립된 보안 도메인입니다. '카카오'라는 Realm이 있다면, 그 안에 속한 유저는 카카오의 모든 서비스(Client)를 이용할 자격을 얻습니다. 단, 유저가 가진 **Role(역할)**에 따라 실제 이용 가능한 기능은 차등 부여됩니다.
 
 1. 먼저 realm이 master(=keycloak)인지 확인합니다.
 <img width="557" height="332" alt="Image" src="https://github.com/user-attachments/assets/7ca067aa-0e80-4d03-a28c-6878ec46a551" style="border: 2px solid black;"/>
